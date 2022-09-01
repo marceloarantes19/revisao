@@ -19,7 +19,7 @@ class NeuralNetwork:
   def sigmoidDerivativo(self, x):
     return x * (1.0 - x)
 
-  def fit(self, X, y, epochs = 100, displayUpdate = 100):
+  def fit(self, X, y, epochs = 1000, displayUpdate = 100):
     X = np.c_[X, np.ones((X.shape[0]))]
     for epoch in range(0, epochs):
       for (x, target) in zip(X, y):

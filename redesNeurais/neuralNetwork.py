@@ -7,17 +7,17 @@ class NeuralNetwork:
     for i in np.arange(0, len(camadas) - 2):
       w = np.random.randn(camadas[i] + 1, camadas [i + 1] + 1)
       self.W.append(w / np.sqrt(camadas[i]))
-      w = np.random.randn(camadas[-2] + 1, camadas[-1])
-      self.W.append(w / np.sqrt(camadas[-2]))
+    w = np.random.randn(camadas[-2] + 1, camadas[-1])
+    self.W.append(w / np.sqrt(camadas[-2]))
   
   def __repr__(self):
     return "Rede Neural: {}".format("-".join(str(l) for l in self.camadas))
   
   def sigmoid(self, x):
-    return 1.0 / (1+ np.exp(x))
+    return 1.0 / (1.0 + np.exp(-x))
   
   def sigmoidDerivativo(self, x):
-    return x * (1 - x)
+    return x * (1.0 - x)
 
   def fit(self, X, y, epochs = 100, displayUpdate = 100):
     X = np.c_[X, np.ones((X.shape[0]))]
@@ -25,7 +25,7 @@ class NeuralNetwork:
       for (x, target) in zip(X, y):
         self.fitParcial(x, target)
       
-      if epoch == 0 or (epoch + 1 % displayUpdate == 0):
+      if epoch == 0 or ((epoch + 1) % displayUpdate)== 0:
         perda = self.calculaPerda(X, y)
         print("[Info] epoca={}, perda={:.7f}".format(epoch + 1, perda))
 

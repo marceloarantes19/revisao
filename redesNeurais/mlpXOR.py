@@ -5,7 +5,7 @@ X = np.array([[0,0], [0,1], [1,0], [1,1]])
 y = np.array([[0], [1], [1], [0]])
 
 print("Treinando o perceptron")
-nn = NeuralNetwork([2, 2, 3, 1], alpha=0.5)
+nn = NeuralNetwork([2, 5, 2, 1], alpha=0.5)
 nn.fit(X, y, epochs=10000)
 
 print("Testando o perceptron")

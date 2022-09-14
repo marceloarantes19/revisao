@@ -39,13 +39,16 @@ class NeuralNetwork:
     A = [np.atleast_2d(x)]
     for camada in np.arange(0, len(self.W)):
       net = A[camada].dot(self.W[camada])
-      out = self.sigmoid(net)
+      #out = self.sigmoid(net)
+      out = self.tanh(net)
       A.append(out)
     erro = A[-1] - y
-    D = [erro * self.sigmoidDerivativo(A[-1])]
+#    D = [erro * self.sigmoidDerivativo(A[-1])]
+    D = [erro * self.tanhDerivativo(A[-1])]
     for camada in np.arange(len(A) -2, 0, -1):
       delta = D[-1].dot(self.W[camada].T)
-      delta = delta * self.sigmoidDerivativo(A[camada])
+      #delta = delta * self.sigmoidDerivativo(A[camada])
+      delta = delta * self.tanhDerivativo(A[camada])
       D.append(delta)
     D = D[::-1]
     for camada in np.arange(0, len(self.W)):
@@ -56,7 +59,8 @@ class NeuralNetwork:
     if addBias:
       p = np.c_[p, np.ones((p.shape[0]))]
     for camada in np.arange(0, len(self.W)):
-      p = self.sigmoid(np.dot(p, self.W[camada]))
+      #p = self.sigmoid(np.dot(p, self.W[camada]))
+      p = self.tanh(np.dot(p, self.W[camada]))
     return p
   
   def calculaPerda(self, X, targets):
